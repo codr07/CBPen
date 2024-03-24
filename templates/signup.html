@@ -1,0 +1,52 @@
+{% extends "layout_nonlogin.html" %}
+{% block head %}
+{% endblock %}
+{% block content %}
+    <h3 class="pb-2 border-bottom">Signup</h3>
+
+    <div class="row mb-3">
+        <div class="col-md-12">
+            {% with errors = get_flashed_messages(category_filter=["error"]) %}
+                {% if errors %}
+                    {% for error_message in errors %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            Error - {{ error_message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            {% if form.errors %}
+                {% for input_field_name, errors in form.errors.items() %}
+                    {% for error in errors %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{ error }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
+            <form action="" method="POST">
+                {{ form.hidden_tag() }}
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    {{ form.username(class_="form-control", id="username") }}
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    {{ form.password(class_="form-control", id="password") }}
+                </div>
+                {{ form.submit(class_="btn btn-dark") }}
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <p class="text-center mb-0">Have an account already? <a href="{{ url_for('signin') }}">Log in</a>
+            </p>
+        </div>
+    </div>
+
+{% endblock %}
+{% block script %}
+{% endblock %}
